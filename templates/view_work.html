@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Client Work | Growthxity CRM{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Client Work</h1>
+        <p class="text-secondary mb-0">Delivery records for won lead: <strong>{{ lead.name }}</strong>.</p>
+    </div>
+    {% if lead.status == "Won" %}
+    <a href="{{ url_for('work.create_work', lead_id=lead.id) }}" class="btn btn-primary">Create Work</a>
+    {% endif %}
+</div>
+
+<div class="page-card p-4">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Service Type</th>
+                    <th>Progress</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Result Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in work_items %}
+                <tr>
+                    <td>{{ item.service_type }}</td>
+                    <td>{{ item.progress_status }}</td>
+                    <td>{{ item.start_date }}</td>
+                    <td>{{ item.end_date or "-" }}</td>
+                    <td>{{ item.result_notes or "-" }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center py-5 text-secondary">No client work created yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

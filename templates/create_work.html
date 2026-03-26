@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Create Work | Growthxity CRM{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xl-8">
+        <div class="page-card p-4 p-lg-5">
+            <div class="mb-4">
+                <h1 class="h3 mb-1">Create Client Work</h1>
+                <p class="text-secondary mb-0">Manage delivery work for won lead: <strong>{{ lead.name }}</strong>.</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" class="row g-3">
+                <div class="col-md-6">
+                    <label for="service_type" class="form-label">Service Type</label>
+                    <select id="service_type" name="service_type" class="form-select" required>
+                        <option value="">Select a service</option>
+                        {% for service in service_choices %}
+                        <option value="{{ service }}" {% if service == form_data.service_type %}selected{% endif %}>{{ service }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="progress_status" class="form-label">Progress Status</label>
+                    <select id="progress_status" name="progress_status" class="form-select" required>
+                        {% for progress in progress_choices %}
+                        <option value="{{ progress }}" {% if progress == form_data.progress_status %}selected{% endif %}>{{ progress }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="start_date" class="form-label">Start Date</label>
+                    <input type="date" id="start_date" name="start_date" value="{{ form_data.start_date }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="end_date" class="form-label">End Date</label>
+                    <input type="date" id="end_date" name="end_date" value="{{ form_data.end_date }}" class="form-control">
+                </div>
+
+                <div class="col-12">
+                    <label for="result_notes" class="form-label">Result Notes</label>
+                    <textarea id="result_notes" name="result_notes" class="form-control" rows="4">{{ form_data.result_notes }}</textarea>
+                </div>
+
+                <div class="col-12 d-flex gap-2 pt-2">
+                    <button type="submit" class="btn btn-primary">Create Work</button>
+                    <a href="{{ url_for('work.view_work', lead_id=lead.id) }}" class="btn btn-outline-secondary">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Add Lead | Growthxity CRM{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xl-7">
+        <div class="page-card p-4 p-lg-5">
+            <div class="mb-4">
+                <h1 class="h3 mb-1">Add New Lead</h1>
+                <p class="text-secondary mb-0">Capture a new contact and add them to your pipeline.</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" class="row g-3">
+                <div class="col-12">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" value="{{ form_data.name }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" value="{{ form_data.email }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" id="phone" name="phone" value="{{ form_data.phone }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="service" class="form-label">Service</label>
+                    <select id="service" name="service" class="form-select" required>
+                        <option value="">Select a service</option>
+                        {% for service in service_choices %}
+                        <option value="{{ service }}" {% if service == form_data.service %}selected{% endif %}>
+                            {{ service }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" id="location" name="location" value="{{ form_data.location }}" class="form-control" required>
+                </div>
+
+                <div class="col-12">
+                    <label for="notes" class="form-label">Notes</label>
+                    <textarea id="notes" name="notes" class="form-control" rows="4" placeholder="Add any useful context for this lead">{{ form_data.notes }}</textarea>
+                </div>
+
+                <div class="col-12 d-flex gap-2 pt-2">
+                    <button type="submit" class="btn btn-primary">Save Lead</button>
+                    <a href="{{ url_for('leads.dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

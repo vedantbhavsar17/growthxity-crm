@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+
+{% block title %}Growthxity CRM{% endblock %}
+
+{% block extra_head %}
+<style>
+    .landing-body {
+        background:
+            radial-gradient(circle at top left, rgba(99, 102, 241, 0.28), transparent 30%),
+            radial-gradient(circle at top right, rgba(168, 85, 247, 0.24), transparent 28%),
+            linear-gradient(135deg, #0f172a 0%, #1d4ed8 35%, #6d28d9 100%);
+        color: #fff;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+    }
+
+    .landing-shell {
+        min-height: 100vh;
+    }
+
+    .landing-navbar {
+        backdrop-filter: blur(10px);
+        background: rgba(15, 23, 42, 0.28);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .landing-brand,
+    .landing-link {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .landing-link {
+        opacity: 0.88;
+        transition: opacity 0.2s ease;
+    }
+
+    .landing-link:hover {
+        opacity: 1;
+    }
+
+    .hero-section {
+        padding: 6rem 0 5rem;
+    }
+
+    .hero-card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 2rem;
+        box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .hero-card::after {
+        content: "";
+        position: absolute;
+        inset: auto -10% -30% auto;
+        width: 260px;
+        height: 260px;
+        background: rgba(34, 197, 94, 0.18);
+        filter: blur(20px);
+        border-radius: 999px;
+    }
+
+    .hero-copy {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 999px;
+        padding: 0.45rem 0.85rem;
+        font-size: 0.9rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .hero-title {
+        font-size: clamp(2.4rem, 5vw, 4.5rem);
+        font-weight: 700;
+        line-height: 1.06;
+        margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1.1rem;
+        max-width: 620px;
+        margin-bottom: 2rem;
+    }
+
+    .landing-btn-primary {
+        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+        border: 0;
+        border-radius: 999px;
+        color: #fff;
+        padding: 0.9rem 1.5rem;
+        text-decoration: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 16px 30px rgba(99, 102, 241, 0.32);
+    }
+
+    .landing-btn-primary:hover {
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 20px 34px rgba(99, 102, 241, 0.4);
+    }
+
+    .landing-btn-secondary {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        color: #fff;
+        padding: 0.9rem 1.5rem;
+        text-decoration: none;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .landing-btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.14);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .hero-panel {
+        background: rgba(15, 23, 42, 0.35);
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-stat {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.25rem;
+        padding: 1rem;
+    }
+
+    .features-section {
+        padding-bottom: 4rem;
+    }
+
+    .feature-card {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1.5rem;
+        box-shadow: 0 20px 45px rgba(15, 23, 42, 0.18);
+        height: 100%;
+    }
+
+    .feature-icon {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(34, 197, 94, 0.18);
+        color: #86efac;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .landing-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.72);
+        padding: 1.25rem 0 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block body_class %}landing-body{% endblock %}
+
+{% block body %}
+<div class="landing-shell d-flex flex-column">
+    <nav class="landing-navbar navbar navbar-expand-lg px-3 px-lg-5 py-3">
+        <div class="container-fluid px-0">
+            <a href="{{ url_for('home') }}" class="landing-brand navbar-brand fw-semibold">Growthxity CRM</a>
+            <div class="d-flex align-items-center gap-3">
+                <a href="{{ url_for('auth.login') }}" class="landing-link">Login</a>
+                <a href="{{ url_for('auth.register') }}" class="landing-link">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow-1">
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-card">
+                    <div class="row g-0 align-items-stretch">
+                        <div class="col-xl-7">
+                            <div class="hero-copy p-4 p-md-5 p-xl-6">
+                                <div class="hero-kicker">Growthxity Digital Systems</div>
+                                <h1 class="hero-title">Growthxity CRM - Smart Lead Management System</h1>
+                                <p class="hero-subtitle">
+                                    Capture, manage, and convert leads effortlessly with real-time automation.
+                                </p>
+                                <div class="d-flex flex-column flex-sm-row gap-3">
+                                    <a href="{{ url_for('auth.register') }}" class="landing-btn-primary">Get Started</a>
+                                    <a href="{{ url_for('auth.login') }}" class="landing-btn-secondary">Login</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-5">
+                            <div class="hero-panel h-100 p-4 p-md-5 d-flex flex-column justify-content-center gap-3">
+                                <div class="hero-stat">
+                                    <div class="small text-white-50 mb-2">Lead Operations</div>
+                                    <div class="h4 mb-0">From capture to conversion in one unified workspace.</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="small text-white-50 mb-2">Pipeline Visibility</div>
+                                    <div class="h5 mb-0">Track New, Contacted, Won, and Lost stages with clarity.</div>
+                                </div>
+                                <div class="hero-stat">
+                                    <div class="small text-white-50 mb-2">Performance Insights</div>
+                                    <div class="h5 mb-0">Use analytics dashboards to monitor growth momentum.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-section">
+            <div class="container">
+                <div class="row g-4">
+                    <div class="col-md-6 col-xl-4">
+                        <div class="feature-card p-4 p-lg-5">
+                            <div class="feature-icon">01</div>
+                            <h2 class="h4 mb-3">Automated Lead Capture</h2>
+                            <p class="mb-0 text-white-50">Capture leads from forms, ads, and integrations.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="feature-card p-4 p-lg-5">
+                            <div class="feature-icon">02</div>
+                            <h2 class="h4 mb-3">Smart Pipeline Tracking</h2>
+                            <p class="mb-0 text-white-50">Track lead status (New, Contacted, Won, Lost).</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-4">
+                        <div class="feature-card p-4 p-lg-5">
+                            <div class="feature-icon">03</div>
+                            <h2 class="h4 mb-3">Analytics Dashboard</h2>
+                            <p class="mb-0 text-white-50">Visualize performance with charts.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <div class="container text-center">
+            &copy; 2026 Growthxity Digital Marketing Agency
+        </div>
+    </footer>
+</div>
+{% endblock %}

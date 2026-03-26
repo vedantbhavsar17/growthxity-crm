@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Lead | Growthxity CRM{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-xl-8">
+        <div class="page-card p-4 p-lg-5">
+            <div class="mb-4">
+                <h1 class="h3 mb-1">Edit Lead</h1>
+                <p class="text-secondary mb-0">Update contact details and move the lead through the pipeline.</p>
+            </div>
+
+            {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+
+            <form method="post" class="row g-3">
+                <div class="col-md-6">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" id="name" name="name" value="{{ lead.name }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" value="{{ lead.email }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" id="phone" name="phone" value="{{ lead.phone }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="service" class="form-label">Service</label>
+                    <select id="service" name="service" class="form-select" required>
+                        <option value="">Select a service</option>
+                        {% for service in service_choices %}
+                        <option value="{{ service }}" {% if service == lead.service %}selected{% endif %}>
+                            {{ service }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" id="location" name="location" value="{{ lead.location or '' }}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="status" class="form-label">Status</label>
+                    <select id="status" name="status" class="form-select" required>
+                        {% for status in status_choices %}
+                        <option value="{{ status }}" {% if status == lead.status %}selected{% endif %}>
+                            {{ status }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label for="notes" class="form-label">Notes</label>
+                    <textarea id="notes" name="notes" class="form-control" rows="4" placeholder="Add any useful context for this lead">{{ lead.notes or '' }}</textarea>
+                </div>
+
+                <div class="col-12 d-flex gap-2 pt-2">
+                    <button type="submit" class="btn btn-primary">Update Lead</button>
+                    <a href="{{ url_for('leads.dashboard') }}" class="btn btn-outline-secondary">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
